@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "name": "Jan Kratochvíl",
+    "lists_id": 1,
+    "lists": [
+      {
+        "id": 1,
+        "list_name": "My first List",
+        "addedUsersId": [],
+        "archived": false,
+        "items": [
+          { "id": 1, "name": "Apple", "bought": false, "userId": 2 },
+          { "id": 2, "name": "Banana", "bought": false, "userId": 2 },
+          { "id": 3, "name": "Orange", "bought": true, "userId": 2 }
+        ]
+      }
+    ]
+  },
+  { "id": 2, "name": "František Hrubín", "lists_id": 1, "lists": [] },
+  {
+    "id": 3,
+    "name": "Test Test",
+    "lists_id": 1,
+    "lists": [
+      {
+        "id": 1,
+        "list_name": "My first List",
+        "archived": false,
+        "addedUsersId": [2],
+        "items": [
+          { "id": 1, "name": "Apple", "bought": false, "userId": 2 },
+          { "id": 2, "name": "Banana", "bought": false, "userId": 2 },
+          { "id": 3, "name": "Orange", "bought": true, "userId": 2 }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+.item {
+  border: 1px solid black;
+  width: 250px;
+  height: 5rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0rem;
+}
+
+button {
+  float: right;
+}
+h2 {
+  margin-bottom: 0;
+}

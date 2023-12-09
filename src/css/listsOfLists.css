@@ -1,0 +1,44 @@
+.single-list {
+  border: 1px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+a {
+  font-size: 2rem;
+  text-decoration: none;
+  color: black;
+  width: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.single-list-actions {
+  margin-right: 5rem;
+  width: 10rem;
+  display: flex;
+}
+.single-list-owner {
+  font-size: 1rem;
+  margin-left: 1rem;
+}
+.single-list-action {
+  width: 5rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.single-list-action-button {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.single-list-action-heading {
+  font-size: 1.25rem;
+}

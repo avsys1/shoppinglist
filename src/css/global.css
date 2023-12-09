@@ -1,0 +1,84 @@
+button {
+  margin: 0rem 0.5rem;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.dropdown-toggle {
+  margin: 0.5rem 0.5rem !important;
+}
+
+.dropdowns {
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid black;
+  padding: 0.75rem;
+  list-style-type: none;
+}
+.list_menu {
+  display: flex;
+  border: 1px solid black;
+  height: 5rem;
+}
+
+.list_name {
+  width: 200px;
+  border-right: 2px solid black;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-add-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-right: 2px solid black;
+}
+
+form {
+  display: flex;
+  width: 10rem;
+  flex-direction: column;
+  border-right: 2px solid black;
+}
+
+.list-add-item-button {
+  margin-top: 0.65rem;
+}
+
+.list-item-action {
+  float: right;
+}
+
+.list-filter-heading {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.list-name {
+  display: flex;
+}
+
+.list-name > div > button {
+  margin-left: 1rem;
+}
+
+#webpack-dev-server-client-overlay-div {
+  display: none !important;
+}
