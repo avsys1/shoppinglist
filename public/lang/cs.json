@@ -1,1 +1,17 @@
-{}
+{
+  "shoppingLists": "Nákupní seznamy",
+  "add": "Přidat",
+  "All": "Všechno",
+  "archived": "Archivované",
+  "darkmode": "Tmavý mód",
+  "lightmode": "Světlý mód",
+  "notfiltered": "Nefiltrovaný",
+  "toggled": "Přepnuté",
+  "untoggled": "Nepřepnuto",
+  "edit": "Upravit",
+  "save": "Uložit",
+  "cancel": "Zrušit",
+  "delete": "Smazat",
+  "leave": "Odejít",
+  "close": "Zavřít"
+}

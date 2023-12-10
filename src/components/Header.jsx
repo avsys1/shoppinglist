@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router";
+import { useLang } from "../context/LangContext";
 import axios from "axios";
+import { useStyle } from "../context/StyleContext";
 /**
  * Header stránky
  */
 function Header({ onClick }) {
+  const { texts, lang, setLang } = useLang();
+  const { currentMode, setCurrentMode } = useStyle();
   const navigate = useNavigate();
   const [dataFromRequest, setDataFromRequest] = useState();
 
@@ -33,15 +37,48 @@ function Header({ onClick }) {
     getData();
   }, []);
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      className={
+        "navbar navbar-expand-lg navbar-" +
+        currentMode +
+        " bg-" +
+        currentMode +
+        " text-" +
+        (currentMode == "light" ? "dark" : "light")
+      }
+    >
       {dataFromRequest?.map((zaznam) => (
         <button
-          className="btn btn-light"
+          className={"btn btn-" + currentMode}
           onClick={(e) => changeUser(zaznam.id)}
         >
           {zaznam.name}
         </button>
       ))}
+      <div id="lang">
+        <p className="nav-lang">Jazyk: {lang}</p>
+        <button className="nav-lang-button" onClick={() => setLang("cs")}>
+          Čeština
+        </button>
+        <button className="nav-lang-button" onClick={() => setLang("en")}>
+          English
+        </button>
+      </div>
+      <div>
+        <p className="nav-lang">Aktuální mód: {currentMode}</p>
+        <button
+          className="nav-lang-button"
+          onClick={() => setCurrentMode("dark")}
+        >
+          {texts.darkmode}
+        </button>
+        <button
+          className="nav-lang-button"
+          onClick={() => setCurrentMode("light")}
+        >
+          {texts.lightmode}
+        </button>
+      </div>
     </nav>
   );
 }

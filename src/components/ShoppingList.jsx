@@ -4,6 +4,9 @@ import "../../node_modules/bootstrap/dist/js/bootstrap";
 import Header from "./Header";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { useStyle } from "../context/StyleContext";
+import { useLang } from "../context/LangContext";
+
 /**
  * Komponent nákupního seznamu
  * @param {*} props - Vlastnosti
@@ -16,6 +19,8 @@ function ShoppingList(props) {
   const [data, setData] = useState(null);
   const [list, setList] = useState(null);
   const [listOwner, setListOwner] = useState(null);
+  const { currentMode } = useStyle();
+  const { texts } = useLang();
 
   async function getData() {
     return new Promise((resolve, reject) => {
@@ -62,8 +67,15 @@ function ShoppingList(props) {
   const navigate = useNavigate();
   const [filter, setFilter] = useState({
     state: 0,
-    name: "Not filtered",
+    name: texts.notfiltered,
   });
+
+  useEffect(() => {
+    setFilter({
+      state: 0,
+      name: texts.notfiltered,
+    });
+  }, [texts]);
   /* ID přihlášeného uživatele */
   const loggedUser = parseInt(localStorage.getItem("loggedUser"));
 
@@ -252,17 +264,17 @@ function ShoppingList(props) {
     if (filter.state == 0)
       setFilter({
         state: 1,
-        name: "Filtered by toggled",
+        name: texts.toggled,
       });
     if (filter.state == 1)
       setFilter({
         state: 2,
-        name: "Filtered by untoggled",
+        name: texts.untoggled,
       });
     if (filter.state == 2)
       setFilter({
         state: 0,
-        name: "Not filtered",
+        name: texts.notfiltered,
       });
   }
   /**
@@ -420,20 +432,23 @@ function ShoppingList(props) {
                       editListName(false);
                     }}
                   >
-                    Save
+                    {texts.save}
                   </button>
                   <button
                     onClick={(e) => {
                       setShouldEditName(false);
                     }}
                   >
-                    Close
+                    {texts.close}
                   </button>
                 </div>
               ) : (
                 ""
               )}
-              <button onClick={(e) => setShouldEditName(true)}> Edit </button>
+              <button onClick={(e) => setShouldEditName(true)}>
+                {" "}
+                {texts.edit}{" "}
+              </button>
             </div>
           ) : (
             ""
@@ -465,19 +480,25 @@ function ShoppingList(props) {
                       value={editedItem}
                       onChange={(e) => setEditedItem(e.target.value)}
                     />
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <button onClick={handleSaveEdit}>{texts.save}</button>
+                    <button onClick={handleCancelEdit}>{texts.cancel}</button>
                   </>
                 ) : (
                   <>
-                    <span onClick={() => handleProductToggle(product.id)}>
+                    <span
+                      className={
+                        "list-filter-heading text-" +
+                        (currentMode == "dark" ? "light" : "dark")
+                      }
+                      onClick={() => handleProductToggle(product.id)}
+                    >
                       {product.name}
                     </span>
                     <button onClick={() => handleEditItem(product.id)}>
-                      Edit
+                      {texts.edit}
                     </button>
                     <button onClick={() => handleDeleteItem(product.id)}>
-                      Delete
+                      {texts.delete}
                     </button>
                   </>
                 )}
@@ -491,7 +512,7 @@ function ShoppingList(props) {
             onChange={(e) => setNewItem(e.target.value)}
             placeholder="Add new item"
           />
-          <button onClick={handleAddItem}>Add</button>
+          <button onClick={handleAddItem}>{texts.add}</button>
         </div>
       </div>
       <hr />
@@ -584,7 +605,7 @@ function ShoppingList(props) {
           {loggedUser == user_id ? (
             ""
           ) : (
-            <button onClick={(e) => handleLeaveUser()}> Odejít </button>
+            <button onClick={(e) => handleLeaveUser()}> {texts.leave} </button>
           )}
         </div>
       </div>

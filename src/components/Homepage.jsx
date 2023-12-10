@@ -3,6 +3,7 @@ import Header from "./Header";
 import { useEffect, useState } from "react";
 import ListOfShoppingLists from "./ListOfShoppingLists";
 import axios from "axios";
+import { useStyle } from "../context/StyleContext";
 /**
  * Komponent domácí stránky
  *
@@ -11,6 +12,7 @@ import axios from "axios";
 
 function Homepage() {
   const [dataFromRequest, setDataFromRequest] = useState(null);
+  const { currentMode } = useStyle();
   async function getData() {
     return new Promise((resolve, reject) => {
       axios

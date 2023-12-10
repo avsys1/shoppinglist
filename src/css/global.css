@@ -3,7 +3,9 @@ button {
 }
 
 html,
-body {
+body,
+#root,
+#content {
   margin: 0;
   padding: 0;
   height: 100%;

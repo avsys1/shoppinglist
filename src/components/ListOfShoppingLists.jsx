@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../css/listsOfLists.css";
 import axios from "axios";
+import { useLang } from "../context/LangContext";
+import { useStyle } from "../context/StyleContext";
 /**
  * Komponent profilu uživatele
  *
@@ -11,7 +13,9 @@ import axios from "axios";
 function ListOfShoppingLists(props) {
   /* Aktuální vlastník seznamu */
   const [allLists, setAllLists] = useState();
-
+  const { currentMode } = useStyle();
+  const { lang, texts } = useLang();
+  console.log(texts);
   async function getData() {
     return new Promise((resolve, reject) => {
       axios
@@ -148,20 +152,33 @@ function ListOfShoppingLists(props) {
       });
     });
   }
-
   return (
     <div>
       <div>
         <div className="list_menu">
-          <h2 className="list_name">Shopping lists</h2>
+          <h2
+            className={
+              "list_name text-" + (currentMode == "dark" ? "light" : "dark")
+            }
+          >
+            {texts.shoppingLists}
+          </h2>
           <div className="list-add-item">
-            Add
+            {texts.add}
             <button onClick={() => addList()} className="list-add-item-button">
               +
             </button>
           </div>
           <form>
-            <p className="list-filter-heading"> Show </p>
+            <p
+              className={
+                "list-filter-heading text-" +
+                (currentMode == "dark" ? "light" : "dark")
+              }
+            >
+              {" "}
+              Show{" "}
+            </p>
             <div>
               <input
                 name="filter"
@@ -169,7 +186,14 @@ function ListOfShoppingLists(props) {
                 checked={filter.state == 2 ? true : false}
                 onChange={(e) => handleFilter(e, "All")}
               />
-              All
+              <span
+                className={
+                  "list-filter-heading text-" +
+                  (currentMode == "dark" ? "light" : "dark")
+                }
+              >
+                {texts.All}
+              </span>
             </div>
             <div>
               <input
@@ -178,7 +202,14 @@ function ListOfShoppingLists(props) {
                 checked={filter.state == 1 ? true : false}
                 onChange={(e) => handleFilter(e, "Archived")}
               />
-              Archived
+              <span
+                className={
+                  "list-filter-heading text-" +
+                  (currentMode == "dark" ? "light" : "dark")
+                }
+              >
+                {texts.archived}
+              </span>
             </div>
           </form>
         </div>
@@ -192,9 +223,21 @@ function ListOfShoppingLists(props) {
           if (user.id === parseInt(localStorage.getItem("loggedUser"))) {
             return list.map((list) => (
               <div key={list.id} className="single-list">
-                <Link to={"/list/" + user.id + "/" + list.id}>
+                <Link
+                  className={
+                    "text-" + (currentMode == "dark" ? "light" : "dark")
+                  }
+                  to={"/list/" + user.id + "/" + list.id}
+                >
                   {list.list_name}
-                  <span className="single-list-owner">({user.name})</span>
+                  <span
+                    className={
+                      "single-list-owner text-" +
+                      (currentMode == "dark" ? "light" : "dark")
+                    }
+                  >
+                    ({user.name})
+                  </span>
                 </Link>
                 <div className="single-list-actions">
                   <div className="single-list-action">
@@ -230,9 +273,21 @@ function ListOfShoppingLists(props) {
             if (list.addedUsersId.includes(parseInt(loggedUser))) {
               return (
                 <div key={list.id} className="single-list">
-                  <Link to={"/list/" + user.id + "/" + list.id}>
+                  <Link
+                    className={
+                      "text-" + (currentMode == "dark" ? "light" : "dark")
+                    }
+                    to={"/list/" + user.id + "/" + list.id}
+                  >
                     {list.list_name}
-                    <span className="single-list-owner">({user.name})</span>
+                    <span
+                      className={
+                        "single-list-owner text-" +
+                        (currentMode == "dark" ? "light" : "dark")
+                      }
+                    >
+                      ({user.name})
+                    </span>
                   </Link>
                 </div>
               );
