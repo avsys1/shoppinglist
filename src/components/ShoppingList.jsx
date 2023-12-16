@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../node_modules/bootstrap/dist/js/bootstrap";
 import Header from "./Header";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useStyle } from "../context/StyleContext";
 import { useLang } from "../context/LangContext";
@@ -418,7 +418,21 @@ function ShoppingList(props) {
       <hr />
       <div>
         <div className="list-name">
-          <h2>{list?.list_name}</h2>
+          <h2>{list?.list_name}</h2>{" "}
+          <button style={{ width: "6.5rem" }}>
+            <Link
+              style={{
+                fontSize: "1rem",
+                textAlign: "start",
+                display: "block",
+                marginLeft: "0.5rem",
+              }}
+              to={"/detail/" + user_id + "/" + list_id}
+            >
+              {" "}
+              Statistiky{" "}
+            </Link>
+          </button>
           {user_id == loggedUser ? (
             <div>
               {shouldEditName ? (

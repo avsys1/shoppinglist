@@ -1,5 +1,5 @@
 import "../css/global.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../css/listsOfLists.css";
 import axios from "axios";
@@ -12,10 +12,11 @@ import { useStyle } from "../context/StyleContext";
  */
 function ListOfShoppingLists(props) {
   /* Aktuální vlastník seznamu */
-  const [allLists, setAllLists] = useState();
+  const [allLists, setAllLists] = useState(null);
   const { currentMode } = useStyle();
   const { lang, texts } = useLang();
-  console.log(texts);
+  const [allListsCount, setAllListsCount] = useState(0);
+  const [allItemsCount, setAllItemsCount] = useState(0);
   async function getData() {
     return new Promise((resolve, reject) => {
       axios
@@ -45,6 +46,31 @@ function ListOfShoppingLists(props) {
     state: 2,
     name: "All",
   });
+
+  useEffect(() => {
+    if (allLists == null) return;
+    var all_counts_lists = 0;
+    var all_counts_item = 0;
+    allLists?.map((user) => {
+      if (user.id === parseInt(localStorage.getItem("loggedUser"))) {
+        all_counts_lists += user.lists.length;
+
+        user.lists.forEach((list) => (all_counts_item += list.items.length));
+      }
+      user.lists.map((list) => {
+        if (
+          list.addedUsersId.includes(
+            parseInt(localStorage.getItem("loggedUser"))
+          )
+        ) {
+          all_counts_item += list.items.length;
+          all_counts_lists++;
+        }
+      });
+    });
+    setAllListsCount(all_counts_lists);
+    setAllItemsCount(all_counts_item);
+  }, [allLists, parseInt(localStorage.getItem("loggedUser"))]);
 
   /**
    * Kontroluje filtrování podle stavu a nastavuje filtr
@@ -214,6 +240,11 @@ function ListOfShoppingLists(props) {
           </form>
         </div>
       </div>
+      <h2>
+        Počet nákupních seznamů:
+        {allListsCount}
+      </h2>
+      <h2> Počet položek v seznamech: {allItemsCount}</h2>
       <div>
         {allLists?.map((user) => {
           var list;

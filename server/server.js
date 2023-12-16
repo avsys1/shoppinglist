@@ -100,6 +100,15 @@ app.patch("/single_list/users", (req, res) => {
   updateData(mock_data);
   return res.sendStatus(200);
 });
+
+app.get("/single_list/stats", (req, res) => {
+  console.log(req?.query);
+  const list = mock_data
+    .find((user) => user.id == req?.query?.user_id)
+    .lists.find((list) => list.id == req?.query?.list_id);
+
+  return res.send(list);
+});
 /* Spuštění serveru */
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
